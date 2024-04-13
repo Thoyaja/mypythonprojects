@@ -1,0 +1,58 @@
+def display_question(question, options):
+    print(question)
+    for i, option in enumerate(options, start=1):
+        print(f"{i}. {option}")
+    print()
+
+def get_user_input(options):
+    while True:
+        try:
+            choice = int(input("Enter your choice: "))
+            if 1 <= choice <= len(options):
+                return choice
+            else:
+                print("Please enter a valid option.")
+        except ValueError:
+            print("Please enter a number.")
+
+def evaluate_answer(user_answer, correct_answer):
+    if user_answer.lower() == correct_answer.lower():
+        print("Correct!")
+        return True
+    else:
+        print("Incorrect. The correct answer is:", correct_answer)
+        return False
+
+def quiz(questions):
+    score = 0
+    for question, options, correct_answer in questions:
+        display_question(question, options)
+        user_choice = get_user_input(options)
+        if evaluate_answer(options[user_choice - 1], correct_answer):
+            score += 1
+    return score
+
+def main():
+    questions = [
+        ("What is the capital of japan?",
+         ["A. Seoul", "B. Tokyo", "C. Beijing", "D. Rome"],
+         "B. Tokyo"),
+        ("Which is the largest planet in our solar system?",
+         ["A. Jupiter", "B. Mars", "C. Saturn", "D. Venus"],
+         "A. Jupiter"),
+        ("Who painted mona lisa?",
+         ["A. leonardo da Vinci", "B. pablo picasso", "C. Vincent van Gogh", "D. michelangelo"],
+         "A. leonardo da Vinci")
+    ]
+    
+    print("Welcome to the Quiz!")
+    print("Each question has multiple-choice options. Enter the corresponding option number to answer.")
+    print("Let's begin!\n")
+    
+    score = quiz(questions)
+    
+    print("\nQuiz finished!")
+    print("Your final score is:", score)
+
+if __name__ == "__main__":
+    main()
